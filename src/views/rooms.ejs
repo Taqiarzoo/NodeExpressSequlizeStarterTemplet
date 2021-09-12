@@ -1,0 +1,214 @@
+<div class="sidebar" data-color="purple" data-background-color="white">
+    <!--
+    Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+    Tip 2: you can also add an image using data-image tag
+-->
+    <div class="logo">
+        <img src="/assets/img/logo-a.png" alt="logo here" style="width: 100%;">
+    </div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/">
+                    <i class="material-icons">dashboard</i>
+                    <p>Dashboard</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/wallets">
+                    <i class="material-icons">account_balance_wallet</i>
+                    <p>Wallets</p>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/rooms">
+                    <i class="material-icons">meeting_room</i>
+                    <p>Rooms</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/transactions">
+                    <i class="material-icons">receipt_long</i>
+                    <p>Transaction</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/commission">
+                    <i class="material-icons">paid</i>
+                    <p>Commissions</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/stake">
+                    <i class="material-icons">money</i>
+                    <p>Stake</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/colyseus">
+                    <i class="material-icons">room_preferences</i>
+                    <p>Colyseus View</p>
+                </a>
+            </li>
+            <!-- your sidebar here -->
+        </ul>
+    </div>
+</div>
+
+<div class="main-panel">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+        <div class="container-fluid">
+            <div class="navbar-wrapper">
+                <a class="navbar-brand" href="javascript:;">Rooms</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="navbar-toggler-icon icon-bar"></span>
+                <span class="navbar-toggler-icon icon-bar"></span>
+                <span class="navbar-toggler-icon icon-bar"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:;">
+                            <i class="material-icons">notifications</i> Notifications
+                        </a>
+                    </li>
+                    <!-- your navbar here -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title ">
+                                <%=title%>
+                            </h4>
+                            <p class="card-category">
+                                <%=subtitle%>
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <%if (data?.data.length> 0) {%>
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>##</th>
+                                            <th>Name</th>
+                                            <th>Stake</th>
+                                            <th>Mode</th>
+                                            <th>Game State</th>
+                                            <th>Participants</th>
+                                            <th>Result</th>
+                                            <th>Created</th>
+                                            <th>Modified</th>
+                                        </tr>
+                                        <% for(var i=0; i < data.data.length; i++) { %>
+                                            <tr>
+                                                <td>
+                                                    <%= (i+1) * data.currentPage %>
+                                                </td>
+                                                <td>
+                                                    <%= data.data[i].name %>
+                                                </td>
+                                                <td>
+                                                    <%= data.data[i].stake %>
+                                                </td>
+                                                <td>
+                                                    <%= data.data[i].mode %>
+                                                </td>
+                                                <td>
+                                                    <%= data.data[i].gameState %>
+                                                </td>
+                                                <td>
+                                                    <%= JSON.parse(data.data[i].participants) %>
+                                                </td>
+                                                <td>
+                                                    <%= JSON.parse(data.data[i].result) %>
+                                                </td>
+                                                <td>
+                                                    <%= data.data[i].createdAt %>
+                                                </td>
+                                                <td>
+                                                    <%= data.data[i].updatedAt %>
+                                                </td>
+                                            </tr>
+                                            <%}%>
+                                    </table>
+                                    <div class="container mt-4">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination justify-content-center">
+                                                <% if (data.previousPage) { %>
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="?page=1">First</a>
+                                                    </li>
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="?page=<%= data.previousPage %>">
+                                                            <%= data.previousPage %>
+                                                        </a>
+                                                    </li>
+                                                    <% } %>
+                                                        <li class="page-item active">
+                                                            <a class="page-link" href="?page=<%= data.currentPage %>">
+                                                                <%= data.currentPage %>
+                                                            </a>
+                                                        </li>
+                                                        <% if (data.nextPage) { %>
+                                                            <li class="page-item">
+                                                                <a class="page-link" href="?page=<%= data.nextPage %>">
+                                                                    <%= data.nextPage %>
+                                                                </a>
+                                                            </li>
+                                                            <li class="page-item">
+                                                                <a class="page-link"
+                                                                    href="?page=<%= data.lastPage %>">Last</a>
+                                                            </li>
+                                                            <% } %>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    <%} else {%>
+                                        <div class="text-center">
+                                            <h5>No wallets found.</h5>
+                                            <div class="mt-4">
+                                                <a href="/" class="btn btn-outline-primary">Go Home</a>
+                                            </div>
+                                        </div>
+                                        <%}%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container-fluid">
+            <nav class="float-left">
+                <ul>
+                    <li>
+                        <a href="https://www.bitace.in">
+                            Bit Ace Technologies Pvt. Ltd.
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="copyright float-right">
+                &copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>, made with <i class="material-icons">favorite</i> by
+                <a href="https://www.bitace.in" target="_blank">Bit Ace Technologies Pvt. Ltd.</a>
+            </div>
+            <!-- your footer here -->
+        </div>
+    </footer>
+</div>

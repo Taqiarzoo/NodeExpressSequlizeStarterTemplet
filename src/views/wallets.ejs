@@ -1,0 +1,299 @@
+<div class="sidebar" data-color="purple" data-background-color="white">
+    <!--
+    Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+    Tip 2: you can also add an image using data-image tag
+-->
+    <div class="logo">
+        <img src="/assets/img/logo-a.png" alt="logo here" style="width: 100%;">
+    </div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/">
+                    <i class="material-icons">dashboard</i>
+                    <p>Dashboard</p>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/wallets">
+                    <i class="material-icons">account_balance_wallet</i>
+                    <p>Wallets</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/rooms">
+                    <i class="material-icons">meeting_room</i>
+                    <p>Rooms</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/transactions">
+                    <i class="material-icons">receipt_long</i>
+                    <p>Transaction</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/commission">
+                    <i class="material-icons">paid</i>
+                    <p>Commissions</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/stake">
+                    <i class="material-icons">money</i>
+                    <p>Stake</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/colyseus">
+                    <i class="material-icons">room_preferences</i>
+                    <p>Colyseus View</p>
+                </a>
+            </li>
+            <!-- your sidebar here -->
+        </ul>
+    </div>
+</div>
+
+<div class="main-panel">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+        <div class="container-fluid">
+            <div class="navbar-wrapper">
+                <a class="navbar-brand" href="javascript:;">Wallet</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="navbar-toggler-icon icon-bar"></span>
+                <span class="navbar-toggler-icon icon-bar"></span>
+                <span class="navbar-toggler-icon icon-bar"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:;">
+                            <i class="material-icons">notifications</i> Notifications
+                        </a>
+                    </li>
+                    <!-- your navbar here -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title ">
+                                <%=title%>
+                            </h4>
+                            <p class="card-category">
+                                <%=subtitle%>
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <%if (wallet_data?.data.length> 0) {%>
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>##</th>
+                                            <th>Number</th>
+                                            <th>Balance</th>
+                                            <th>Remarks</th>
+                                            <th>Created</th>
+                                            <th>Modified</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        <% for(var i=0; i < wallet_data.data.length; i++) { %>
+                                            <tr>
+                                                <td>
+                                                    <%= (i+1) * wallet_data.currentPage %>
+                                                </td>
+                                                <td>
+                                                    <%= wallet_data.data[i]["user.number"] %>
+                                                </td>
+                                                <td>
+                                                    <%= wallet_data.data[i].balance %>
+                                                </td>
+                                                <td>
+                                                    <%= wallet_data.data[i].remarks %>
+                                                </td>
+                                                <td>
+                                                    <%= wallet_data.data[i].createdAt %>
+                                                </td>
+                                                <td>
+                                                    <%= wallet_data.data[i].updatedAt %>
+                                                </td>
+                                                <td>
+                                                    <button class="btn"><i class="material-icons">history</i></button>
+                                                    <button class="btn" data-toggle="modal" data-target="#addMoneyModal"
+                                                        data-whatever="<%=wallet_data.data[i].id%>"><i
+                                                            class="material-icons">add</i></button>
+                                                    <button class="btn" data-toggle="modal" data-target="#subMoneyModal"
+                                                        data-whatever="<%=wallet_data.data[i].id%>"><i
+                                                            class="material-icons">remove</i></button>
+                                                </td>
+                                            </tr>
+                                            <%}%>
+                                    </table>
+                                    <div class="container mt-4">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination justify-content-center">
+                                                <% if (wallet_data.previousPage) { %>
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="?page=1">First</a>
+                                                    </li>
+                                                    <li class="page-item">
+                                                        <a class="page-link"
+                                                            href="?page=<%= wallet_data.previousPage %>">
+                                                            <%= wallet_data.previousPage %>
+                                                        </a>
+                                                    </li>
+                                                    <% } %>
+                                                        <li class="page-item active">
+                                                            <a class="page-link"
+                                                                href="?page=<%= wallet_data.currentPage %>">
+                                                                <%= wallet_data.currentPage %>
+                                                            </a>
+                                                        </li>
+                                                        <% if (wallet_data.nextPage) { %>
+                                                            <li class="page-item">
+                                                                <a class="page-link"
+                                                                    href="?page=<%= wallet_data.nextPage %>">
+                                                                    <%= wallet_data.nextPage %>
+                                                                </a>
+                                                            </li>
+                                                            <li class="page-item">
+                                                                <a class="page-link"
+                                                                    href="?page=<%= wallet_data.lastPage %>">Last</a>
+                                                            </li>
+                                                            <% } %>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    <%} else {%>
+                                        <div class="text-center">
+                                            <h5>No wallets found.</h5>
+                                            <div class="mt-4">
+                                                <a href="/" class="btn btn-outline-primary">Go Home</a>
+                                            </div>
+                                        </div>
+                                        <%}%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container-fluid">
+            <nav class="float-left">
+                <ul>
+                    <li>
+                        <a href="https://www.bitace.in">
+                            Bit Ace Technologies Pvt. Ltd.
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="copyright float-right">
+                &copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>, made with <i class="material-icons">favorite</i> by
+                <a href="https://www.bitace.in" target="_blank">Bit Ace Technologies Pvt. Ltd.</a>
+            </div>
+            <!-- your footer here -->
+        </div>
+    </footer>
+</div>
+
+<div class="modal fade" id="addMoneyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Money</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="form" method="post" action="/add-money">
+                <div class="modal-body">
+                    <div class="form-group" hidden>
+                        <input type="text" class="form-control" id="wallet-id-add" name="id">
+                    </div>
+                    <div class="form-group">
+                        <label for="amount" class="col-form-label">Amount:</label>
+                        <input type="number" class="form-control" id="amount" name="amount">
+                    </div>
+                    <div class="form-group">
+                        <label for="remarks" class="col-form-label">Remarks:</label>
+                        <textarea class="form-control" id="remarks" name="remarks"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" value="Save" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="subMoneyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Subtract Money</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="form" method="post" action="/sub-money">
+                <div class="modal-body">
+                    <div class="form-group" hidden>
+                        <input type="text" class="form-control" id="wallet-id-sub" name="id">
+                    </div>
+                    <div class="form-group">
+                        <label for="amount" class="col-form-label">Amount:</label>
+                        <input type="number" class="form-control" id="amount" name="amount">
+                    </div>
+                    <div class="form-group">
+                        <label for="remarks mb-2" class="col-form-label">Remarks:</label>
+                        <textarea class="form-control" id="remarks" name="remarks"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" value="Save" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#addMoneyModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var walletID = button.data('whatever') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        $("#wallet-id-add").val(walletID)
+    })
+
+    $('#subMoneyModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var walletID = button.data('whatever') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        $("#wallet-id-sub").val(walletID)
+    })
+</script>

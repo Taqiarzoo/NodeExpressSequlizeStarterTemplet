@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+
+            <img src="/assets/img/logo-a.png" alt="logo" style="width: 75%; margin-left: 12.5%;">
+    
+            <h2 style="text-align: center;"><span class="fa fa-sign-in"></span> Login</h2>
+    
+            <!-- show any messages that come back with authentication -->
+            <% if (message.length> 0) { %>
+                <div class="alert alert-danger">
+                    <%= message %>
+                </div>
+            <% } %>
+    
+            <!-- LOGIN FORM -->
+            <form action="/signin" method="post" class="d-flex" style="flex-direction: column;">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" name="username">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="password">
+                </div>
+
+                <button type="submit" class="btn btn-warning btn-lg" style="width: 25%; align-self: flex-end;">Login</button>
+            </form>
+
+            <hr>
+
+            <p style="text-align: center;">This Site © by &nbsp;<a href="http://bitace.in">BitAce Technologies Pvt. Ltd.</a></p>
+    
+        </div>
+    </div>
+</div>
