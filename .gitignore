@@ -4,3 +4,4 @@ unity-project
 *.env
 .vscode
 lib
+dist
