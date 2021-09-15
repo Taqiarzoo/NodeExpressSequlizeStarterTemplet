@@ -11,7 +11,7 @@ const limiter = rateLimiter({
 export const FamilyRouts = Router();
 
 FamilyRouts.get('/',familyController.getFamily)
-// FamilyRouts.post('/',familyController.CreateMember)
-// FamilyRouts.patch('/',familyController.UpdateMember)
-// FamilyRouts.delete('/',familyController.deleteMember)
+FamilyRouts.get('/number',familyController.generateFamilyNo)
+FamilyRouts.post('/create',familyController.createFamily)
+FamilyRouts.post('/selectHead',familyController.selectHead)
 
