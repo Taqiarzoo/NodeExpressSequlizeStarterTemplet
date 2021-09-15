@@ -45,7 +45,7 @@ export class Server {
             
         } catch(error) {
            console.log("Error In Server new")
-           console.log("Error")
+           console.log(error)
            throw new InternalServerError("Error in Running The Server");
         }
 
@@ -79,6 +79,16 @@ export class Server {
         Server.app.set("port", process.env.PORT || 3000);
         Server.app.use(bodyParser.urlencoded({ extended: true }));
         Server.app.use(bodyParser.json());
+        Server.app.use((req, res, next)=> {
+            // Website you wish to allow to connect
+            res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+            res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+            // Request methods you wish to allow
+            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+            // Request headers you wish to allow
+            res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+            next();
+        });
         Server.app.use(morgan('dev', {
             skip: function (req, res) {
                 return res.statusCode < 400;

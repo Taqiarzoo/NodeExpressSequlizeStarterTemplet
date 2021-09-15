@@ -12,6 +12,7 @@ class ConfigController {
     this.selfInstance = new ConfigController();
     return this.selfInstance;
   }
+  
 
   // public async GetStakes(req: Request, res: Response, next: NextFunction) {
   //   try {

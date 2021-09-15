@@ -4,7 +4,7 @@ export default {
   database: process.env.db || "frm",
   port: parseInt(process.env.dbPort) || 3306,
   host: process.env.dbHost,
-  logging: false,
+  logging: console.log,
   username: process.env.dbUser || 'root',
   password: process.env.dbPass || '',
   // models: [__dirname + "/models/"],

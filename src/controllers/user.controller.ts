@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import Config from "../models/config.model";
+
 
 import { paginate } from "../services/paginate.service";
 
