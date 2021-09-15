@@ -12,7 +12,7 @@ import State from "./state.model";
 export default class Family extends Model {
 
     @Column({ type: DataType.STRING })
-    familyId!: string;
+    family_no!: string;
 
     @BelongsTo(() => Member,{
         foreignKey:"headId",
@@ -24,6 +24,25 @@ export default class Family extends Model {
         foreignKey:"memberId",
         as:"member"
     })
+
+    @BelongsTo(() => Member,{
+        foreignKey:"tempHeadId",
+        as:"tempHead"
+    })
+
+    @Column({
+        type: DataType.BOOLEAN,
+        allowNull:false,
+        defaultValue: 0
+    })
+    is_head_assign:string;
+
+    @Column({
+        type: DataType.BOOLEAN,
+        allowNull:false,
+        defaultValue: 0
+    })
+    is_relation_define:string;
 
 
     @ForeignKey(() => Relation)

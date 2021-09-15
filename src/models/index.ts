@@ -39,7 +39,7 @@ export class Models {
         (
             {
                 force: false,
-                alter:false,
+                alter:true,
             }
         ).then((data:any)=>{
             Relation.findAndCountAll().then(({count})=>{
