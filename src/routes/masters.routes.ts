@@ -42,3 +42,8 @@ MasterRouts.get('/address_type',mastersController.getAddressType)
 MasterRouts.post('/address_type',mastersController.createAddressType)
 MasterRouts.patch('/address_type',mastersController.updateAddressType)
 MasterRouts.delete('/address_type',mastersController.deleteAddressType)
+
+MasterRouts.get('/relations',mastersController.getRelations)
+MasterRouts.post('/relation',mastersController.createRelation)
+MasterRouts.patch('/relation',mastersController.updateRelation)
+MasterRouts.delete('/relation',mastersController.deleteRelation)

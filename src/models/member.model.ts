@@ -61,6 +61,13 @@ export default class Member extends Model {
         defaultValue: 0
     })
     is_assign_family:string;
+
+    @Column({
+        type: DataType.BOOLEAN,
+        allowNull:false,
+        defaultValue: 0
+    })
+    is_head:string;
     
     @Column({ type: DataType.STRING })
     fee_paid_upto!: string;

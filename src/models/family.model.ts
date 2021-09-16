@@ -14,6 +14,9 @@ export default class Family extends Model {
     @Column({ type: DataType.STRING })
     family_no!: string;
 
+    @Column({ type: DataType.STRING })
+    family_name!: string;
+
     @BelongsTo(() => Member,{
         foreignKey:"headId",
         as:"head"

@@ -14,4 +14,6 @@ FamilyRouts.get('/',familyController.getFamily)
 FamilyRouts.get('/number',familyController.generateFamilyNo)
 FamilyRouts.post('/create',familyController.createFamily)
 FamilyRouts.post('/selectHead',familyController.selectHead)
+FamilyRouts.post('/',familyController.setRelations)
+//FamilyRouts.post('/selectHead',familyController.selectHead)
 

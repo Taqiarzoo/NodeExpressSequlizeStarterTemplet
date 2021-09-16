@@ -4,6 +4,7 @@ import Area from "../models/area.model";
 import GaliMohalla from "../models/gali_mohalla.model";
 import LastNames from "../models/last_names.model";
 import MemberType from "../models/member_type.model";
+import Relation from "../models/relation.model";
 
 
 
@@ -400,6 +401,77 @@ class MastersController {
                 status: 1,
                 data: data,
                 message:"Address Type Sussfully Deleted"
+            })
+        }).catch((err:any)=>{
+            res.send({
+                status: -1,
+                error_message: err.message
+            })
+        })
+    }
+
+
+    public async getRelations(req: Request, res: Response, next: NextFunction) {
+        await Relation.findAll().then((data:any)=>{
+            res.send({
+                status: 1,
+                relations: data
+            })
+        }).catch((err:any)=>{
+            res.send({
+                status: -1,
+                error_message: err.message
+            })
+        })
+    }
+
+    public async createRelation(req: Request, res: Response, next: NextFunction) {
+        await Relation.create({
+            name:req.body.relation
+        }).then((data:any)=>{
+            res.send({
+                status: 1,
+                data: data,
+                message:"Relation Sussfully Created"
+            })
+        }).catch((err:any)=>{
+            res.send({
+                status: -1,
+                error_message: err.message
+            })
+        })
+    }
+
+    public async updateRelation(req: Request, res: Response, next: NextFunction) {
+        await Relation.update({
+            name:req.body.relation
+        },{
+            where:{
+                id:req.query.reationId
+            }
+        }).then((data:any)=>{
+            res.send({
+                status: 1,
+                data: data,
+                message:"Relation Sussfully Updated"
+            })
+        }).catch((err:any)=>{
+            res.send({
+                status: -1,
+                error_message: err.message
+            })
+        })
+    }
+
+    public async deleteRelation(req: Request, res: Response, next: NextFunction) {
+        await Relation.destroy({
+            where:{
+                id:req.query.relationId
+            }
+        }).then((data:any)=>{
+            res.send({
+                status: 1,
+                message:"Relation Sussfully Deleted"
             })
         }).catch((err:any)=>{
             res.send({
